@@ -23,3 +23,5 @@ h1,h2,h3,h4{font-family:var(--head);letter-spacing:-.025em}h1,h2{font-weight:600
 body:not(.home) .entry-content h1,body:not(.home) .entry-content h2,body:not(.home) .entry-content h3,body:not(.home) .entry-content h4{font-family:'PRBC Montserrat',sans-serif!important;letter-spacing:-.025em}
 body:not(.home) .entry-content p,body:not(.home) .entry-content li,body:not(.home) .site-header,body:not(.home) .site-footer{font-family:'PRBC Montserrat',sans-serif!important}
 @media(max-width:900px){.header nav{background:#003057}.hero-art::after{background:linear-gradient(180deg,#003057 0%,rgba(0,48,87,.12) 30%,rgba(0,48,87,.12) 100%)}}
+.service-note{font-size:14px!important;line-height:1.55!important;margin-top:10px!important}.service-note a{text-decoration:underline;text-underline-offset:3px}
+.hero-service-note{color:#bbe5f0;font-size:13px;line-height:1.5;max-width:430px;margin:-9px 0 20px}.hero-service-note a{color:inherit;text-decoration:underline;text-underline-offset:3px}
