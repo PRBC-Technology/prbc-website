@@ -16,7 +16,7 @@ h1,h2,h3,h4{font-family:var(--head);letter-spacing:-.025em}h1,h2{font-weight:600
 .welcome-copy,.story-text,.section-head>p,.visit-intro>p,.community-copy>p:not(.eyebrow),.card-body p,.team-card p{color:#003057}
 .card-number,.detail-label{color:#003057}.next,.team,.visit-grid,.contact-grid{background:#bbe5f0}
 .feature-card{background:#fff}.community-art{background:#ffdbb2}.arrow-link{color:#003057}.arrow-link:hover{color:#003057;text-decoration:underline}
-.footer{background-color:#003057;background-image:linear-gradient(rgba(0,48,87,.88),rgba(0,48,87,.88)),url('wp-content/uploads/2025/02/dark-blue-background.jpg');background-position:center;background-size:auto,auto 215px}
+.footer{background-color:#003057;background-image:linear-gradient(rgba(0,48,87,.88),rgba(0,48,87,.88)),url('site-content/uploads/2025/02/dark-blue-background.jpg');background-position:center;background-size:auto,auto 215px}
 .footer-main p,.footer-bottom{color:#bbe5f0}.brand img{object-fit:contain}.brand span{font-weight:500}.brand b{font-weight:700}
 .button,.nav-cta,.text-link,.arrow-link{font-weight:700}.menu-toggle{border-color:#bbe5f0}
 /* Legacy snapshot pages retain their content but use the same brand typography. */
