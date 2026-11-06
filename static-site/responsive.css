@@ -1,0 +1,65 @@
+/* Homepage adjustments for the mobile and tablet header. */
+@media (max-width: 1024px) {
+  body.home.mobile-transparent-header #masthead {
+    position: relative;
+    background: #103d80;
+  }
+
+  .home .kb-row-layout-id988_86d92d-c0 {
+    background-color: #103d80;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+  .home .kb-row-layout-id988_86d92d-c0 > .kt-row-column-wrap {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+    padding: 0;
+  }
+
+  .home .wp-block-kadence-rowlayout.kb-row-layout-id988_78121e-83 {
+    margin-top: 0;
+    background: #103d80;
+  }
+
+  .home .kb-row-layout-id988_78121e-83 > .kt-row-column-wrap {
+    padding: 0 20px;
+  }
+
+  .home .kb-row-layout-id988_3de27e-02 > .kt-row-column-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 0 28px;
+  }
+
+  .home .kadence-column988_a361a0-a8,
+  .home .kadence-column988_dd5df7-3f {
+    display: none;
+  }
+
+  .home .kb-row-layout-id988_3de27e-02 .kt-inside-inner-col {
+    padding: 0;
+  }
+
+  .home .kb-row-layout-id988_3de27e-02 .kb-buttons-wrap {
+    margin: 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .home .kb-row-layout-id988_3de27e-02 .kb-button {
+    padding: 14px 18px;
+    font-size: 13px;
+  }
+}
+
+
+/* Keep the map in full colour. */
+.kb-google-maps-container988_67a800-1e {
+  filter: saturate(1.15);
+}
