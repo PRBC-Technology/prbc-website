@@ -1,0 +1,25 @@
+/* PRBC brand typefaces, supplied with the brand guidelines. */
+@font-face{font-family:PRBC Montserrat;src:url('assets/fonts/montserrat-regular.woff2') format('woff2');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:PRBC Montserrat;src:url('assets/fonts/montserrat-medium.woff2') format('woff2');font-style:normal;font-weight:500;font-display:swap}
+@font-face{font-family:PRBC Montserrat;src:url('assets/fonts/montserrat-semibold.woff2') format('woff2');font-style:normal;font-weight:600;font-display:swap}
+@font-face{font-family:PRBC Montserrat;src:url('assets/fonts/montserrat-bold.woff2') format('woff2');font-style:normal;font-weight:700 900;font-display:swap}
+@font-face{font-family:PRBC Noto Serif;src:url('assets/fonts/noto-serif-light-italic.woff2') format('woff2');font-style:italic;font-weight:300;font-display:swap}
+:root{--blue:#003057;--navy:#003057;--ink:#003057;--aqua:#00bfb2;--peach:#ffdbb2;--cream:#bbe5f0;--body:'PRBC Montserrat',sans-serif;--head:'PRBC Montserrat',sans-serif;--global-body-font-family:'PRBC Montserrat',sans-serif;--global-heading-font-family:'PRBC Montserrat',sans-serif;--global-primary-nav-font-family:'PRBC Montserrat',sans-serif;--global-palette1:#00bfb2;--global-palette2:#003057;--global-palette3:#003057;--global-palette7:#bbe5f0}
+body{font-family:var(--body)}
+h1,h2,h3,h4{font-family:var(--head);letter-spacing:-.025em}h1,h2{font-weight:600}h1 em,h2 em{font-family:'PRBC Noto Serif',serif;font-style:italic;font-weight:300;letter-spacing:-.025em;color:var(--navy)}
+.hero h1 em,.pastors h2 em,.page-callout h2 em,.page-hero h1 em{color:var(--peach)}
+.header,.hero,.pastors,.page-hero,.page-callout{background-color:var(--navy)}
+.hero-art::after{background:linear-gradient(90deg,#003057 0%,rgba(0,48,87,.26) 25%,rgba(0,48,87,.12) 100%)}
+.hero-intro,.pastors-copy>p:not(.eyebrow),.page-hero>div>p:not(.eyebrow),.page-callout p:not(.eyebrow){color:#fff}
+.service-time,.eyebrow.light,.hero-bottom{color:#bbe5f0}
+.eyebrow{font-weight:600;letter-spacing:.08em}.eyebrow span{background:#00bfb2}.eyebrow.light span{background:#ffdbb2}
+.welcome-copy,.story-text,.section-head>p,.visit-intro>p,.community-copy>p:not(.eyebrow),.card-body p,.team-card p{color:#003057}
+.card-number,.detail-label{color:#003057}.next,.team,.visit-grid,.contact-grid{background:#bbe5f0}
+.feature-card{background:#fff}.community-art{background:#ffdbb2}.arrow-link{color:#003057}.arrow-link:hover{color:#003057;text-decoration:underline}
+.footer{background-color:#003057;background-image:linear-gradient(rgba(0,48,87,.88),rgba(0,48,87,.88)),url('wp-content/uploads/2025/02/dark-blue-background.jpg');background-position:center;background-size:auto,auto 215px}
+.footer-main p,.footer-bottom{color:#bbe5f0}.brand img{object-fit:contain}.brand span{font-weight:500}.brand b{font-weight:700}
+.button,.nav-cta,.text-link,.arrow-link{font-weight:700}.menu-toggle{border-color:#bbe5f0}
+/* Legacy snapshot pages retain their content but use the same brand typography. */
+body:not(.home) .entry-content h1,body:not(.home) .entry-content h2,body:not(.home) .entry-content h3,body:not(.home) .entry-content h4{font-family:'PRBC Montserrat',sans-serif!important;letter-spacing:-.025em}
+body:not(.home) .entry-content p,body:not(.home) .entry-content li,body:not(.home) .site-header,body:not(.home) .site-footer{font-family:'PRBC Montserrat',sans-serif!important}
+@media(max-width:900px){.header nav{background:#003057}.hero-art::after{background:linear-gradient(180deg,#003057 0%,rgba(0,48,87,.12) 30%,rgba(0,48,87,.12) 100%)}}
