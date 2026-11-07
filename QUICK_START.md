@@ -8,20 +8,14 @@ This is the static website for **Park Ridge Baptist Church** (PRBC), an Australi
 
 ---
 
-## Project Type: Static Site from WordPress
+## Project Type: Static Site
 
 ```
-WordPress (Dynamic) → Scraper (clone-site.py) → Static HTML → GitHub Pages Preview
-                                                                    ↓
-                                                          + path prefixes
-                                                          + noindex headers
-                                                                    
-                                                    Production (static-site/)
-                                                          ↓
-                                                      SFTP Upload
-                                                          ↓
-                                                      prbc.org.au
+Repository root → GitHub Pages build → GitHub Pages preview
+                → SFTP upload       → prbc.org.au
 ```
+
+The current site contains the Home, About and Contact pages.
 
 ---
 
@@ -29,7 +23,7 @@ WordPress (Dynamic) → Scraper (clone-site.py) → Static HTML → GitHub Pages
 
 | Folder | Purpose |
 |--------|---------|
-| `static-site/` | **Production website** - deployed to prbc.org.au |
+| Repository root | Website pages, styles, scripts and assets |
 | `pages-dist/` | GitHub Pages build (auto-generated, do not edit) |
 | `scripts/` | Build & deployment scripts |
 | `PRBC Fonts/` | Brand typeface files (Montserrat, Noto Serif) |
@@ -40,17 +34,15 @@ WordPress (Dynamic) → Scraper (clone-site.py) → Static HTML → GitHub Pages
 
 ### Edit Homepage
 ```
-static-site/index.html → Edit content, sections
-static-site/home.css   → Edit homepage styling
-static-site/brand.css  → Edit brand colors, fonts
+index.html → Edit content, sections
+home.css   → Edit homepage styling
+brand.css  → Edit brand colors, fonts
 ```
 
 ### Edit Other Pages
 ```
-static-site/about/index.html          → About page
-static-site/contact/index.html        → Contact page
-static-site/services/index.html       → Services page
-static-site/events/index.html         → Events listing
+about/index.html          → About page
+contact/index.html        → Contact page
 ```
 
 ### Key Styling Variables (in `brand.css`)
@@ -70,7 +62,7 @@ static-site/events/index.html         → Events listing
 ### 1. Make Changes Locally
 ```bash
 cd "C:\Users\jakes\Documents\Developer\ChatGPT\PRBC Website"
-# Edit files in static-site/
+# Edit website files at the repository root
 git add .
 git commit -m "your message"
 git push
@@ -81,11 +73,15 @@ git push
 - Creates `pages-dist/` with noindex headers
 - Preview: https://prbc-technology.github.io/prbc-website/
 
-### 3. Deploy to Production (Manual)
+### 3. Preview Locally
+- Run `python -m http.server 8000 --bind 127.0.0.1` from the repository root.
+- Open http://localhost:8000/; opening `index.html` directly does not resolve root-relative paths.
+
+### 4. Deploy to Production (Manual)
 - Install VS Code **SFTP** extension
 - Open `.vscode/sftp.json` (has encrypted config)
 - Enter FTP password when prompted
-- Right-click `static-site/` → **SFTP: Upload Folder**
+- Upload only the site files and folders listed in [DEPLOYMENT.md](./DEPLOYMENT.md), not the repository root
 - Site updates at https://prbc.org.au/
 
 ---
@@ -120,13 +116,6 @@ git push
 
 ## Build Scripts
 
-### `clone-site.py`
-Scrapes WordPress site and creates static HTML copy
-```bash
-python clone-site.py
-```
-Output: `static-site/` folder with all pages and assets
-
 ### `build_pages.py`
 Prepares GitHub Pages deployment (adds path prefix, noindex headers)
 ```bash
@@ -134,24 +123,23 @@ python scripts/build_pages.py
 ```
 Output: `pages-dist/` folder for GitHub Pages
 
+When adding a top-level page or asset folder, add it to `site_items` in
+`scripts/build_pages.py` so it is included in the preview build.
+
 ---
 
 ## File Structure at a Glance
 
 ```
-static-site/
+repository root/
 ├── index.html              ← Homepage
 ├── about/index.html        ← About page
 ├── contact/index.html      ← Contact page
-├── services/index.html     ← Services
-├── events/                 ← Event pages
-├── blog/index.html         ← Blog
-├── donation-info/          ← Giving info
 ├── home.css               ← Homepage styles
 ├── brand.css              ← Brand colors/fonts
 ├── home.js                ← Menu toggle
 ├── assets/                ← Images & fonts
-├── site-content/          ← WordPress exports (plugins, themes, uploads)
+├── site-content/          ← Images used by the current pages
 ├── robots.txt             ← SEO robot directives
 └── sitemap.xml            ← Search engine sitemap
 ```
@@ -173,24 +161,23 @@ Used throughout site for consistency:
 
 ### Add a New Event
 1. Event details go in Church Center: https://parkridgebaptist.churchcenter.com/registrations/events
-2. Event listing pages auto-populate from Church Center API
-3. For static snapshots, add to `events/` folder as needed
+2. The website links to the Church Center event listing
 
 ### Update Service Times
-1. Edit `static-site/index.html` - search for "9 AM" or "8:30 am"
+1. Edit `index.html` - search for "9 AM" or "8:30 am"
 2. Update both hero section and visit section
 3. Test on GitHub Pages before deploying to production
 
 ### Update Contact Info
-1. Edit email addresses in `index.html` and `static-site/contact/index.html`
+1. Edit email addresses in `index.html` and `contact/index.html`
 2. Check `brand.css` for any hardcoded links
 3. Update Google Maps URL if location changes
 
 ### Add a New Page
-1. Create folder: `static-site/my-page/`
-2. Create file: `static-site/my-page/index.html`
+1. Create folder: `my-page/`
+2. Create file: `my-page/index.html`
 3. Use existing pages as template
-4. Link from `static-site/index.html` navigation
+4. Link from `index.html` navigation and add `my-page` to `site_items` in `scripts/build_pages.py`
 
 ---
 
@@ -227,7 +214,7 @@ Before going to production:
 
 ### Links broken after deployment?
 1. Check relative paths don't have extra slashes
-2. Ensure `static-site/robots.txt` allows crawling
+2. Ensure `robots.txt` allows crawling
 3. Verify `sitemap.xml` includes new pages
 
 ---
@@ -242,7 +229,7 @@ Before going to production:
 ---
 
 **Quick Reference**
-- Edit files in: `static-site/`
+- Edit website files in: the repository root
 - Deploy via: VS Code SFTP extension
 - Preview: GitHub Pages (automatic)
 - Production: `prbc.org.au`

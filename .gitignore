@@ -1,4 +1,4 @@
-# Raw capture and migration helper; the deployable site is in static-site/.
+# Raw capture and migration helper.
 /pages-api.json
 /original-home.html
 /clone-site.py

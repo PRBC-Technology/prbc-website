@@ -1,5 +1,9 @@
 # PRBC Website - Architecture & Technical Details
 
+> Historical snapshot: This analysis describes the earlier WordPress export.
+> The current site is at the repository root and contains Home, About and Contact; older pages and migration
+> files have been removed. See `QUICK_START.md` for current guidance.
+
 ## System Architecture
 
 ```

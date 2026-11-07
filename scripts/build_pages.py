@@ -4,14 +4,27 @@ import os
 import re
 import shutil
 
-source = Path('static-site')
-target = Path('pages-dist')
+source = Path(__file__).resolve().parent.parent
+target = source / 'pages-dist'
+site_items = (
+    'index.html', 'home.css', 'home.js', 'brand.css', 'pages.css',
+    'about', 'contact', 'assets', 'site-content',
+)
+for name in site_items:
+    if not (source / name).exists():
+        raise FileNotFoundError(f'Missing site item: {source / name}')
 if target.exists():
     shutil.rmtree(target)
-shutil.copytree(source, target)
+target.mkdir()
+for name in site_items:
+    item = source / name
+    if item.is_dir():
+        shutil.copytree(item, target / name)
+    else:
+        shutil.copy2(item, target / name)
 repository = os.environ.get('GITHUB_REPOSITORY', 'PRBC-Technology/prbc-website').split('/')[-1]
 prefix = '/' + repository
-paths = [p.name for p in source.iterdir()]
+paths = site_items
 pattern = re.compile(r'(?P<lead>["\'\s(,])/(?P<path>(?:' + '|'.join(map(re.escape, paths)) + r')(?:/|[?#"\'\s),]|$))')
 for file in target.rglob('*'):
     if file.is_file() and file.suffix.lower() in ('.html', '.css'):
