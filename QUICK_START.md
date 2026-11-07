@@ -10,11 +10,6 @@ This is the static website for **Park Ridge Baptist Church** (PRBC), an Australi
 
 ## Project Type: Static Site
 
-```
-Repository root → GitHub Pages build → GitHub Pages preview
-                → SFTP upload       → prbc.org.au
-```
-
 The current site contains the Home, About and Contact pages.
 
 ---
@@ -25,7 +20,7 @@ The current site contains the Home, About and Contact pages.
 |--------|---------|
 | Repository root | Website pages, styles, scripts and assets |
 | `pages-dist/` | GitHub Pages build (auto-generated, do not edit) |
-| `scripts/` | Build & deployment scripts |
+| `scripts/` | Preview build scripts |
 | `PRBC Fonts/` | Brand typeface files (Montserrat, Noto Serif) |
 
 ---
@@ -76,15 +71,6 @@ git push
 ### 3. Preview Locally
 - Run `python -m http.server 8000 --bind 127.0.0.1` from the repository root.
 - Open http://localhost:8000/; opening `index.html` directly does not resolve root-relative paths.
-
-### 4. Deploy to Production (Manual)
-- Install VS Code **SFTP** extension
-- Open `.vscode/sftp.json` (has encrypted config)
-- Enter FTP password when prompted
-- Upload only the site files and folders listed in [DEPLOYMENT.md](./DEPLOYMENT.md), not the repository root
-- Site updates at https://prbc.org.au/
-
----
 
 ## Important URLs
 
@@ -207,10 +193,8 @@ Before going to production:
 4. May take 1-2 minutes to publish
 
 ### Changes not appearing on production?
-1. Verify SFTP upload completed successfully
-2. Clear browser cache
-3. Check if file was deleted or replaced correctly
-4. May take a few seconds to propagate
+1. Clear the browser cache or use an incognito window.
+2. Check whether the expected content is visible.
 
 ### Links broken after deployment?
 1. Check relative paths don't have extra slashes
@@ -221,7 +205,6 @@ Before going to production:
 
 ## Resources
 
-- [DEPLOYMENT.md](./DEPLOYMENT.md) - Detailed deployment instructions
 - [SEO-NOTES.md](./SEO-NOTES.md) - Local SEO strategy and research
 - [README.md](./README.md) - Project overview
 - GitHub: https://github.com/PRBC-Technology/prbc-website
@@ -230,6 +213,5 @@ Before going to production:
 
 **Quick Reference**
 - Edit website files in: the repository root
-- Deploy via: VS Code SFTP extension
 - Preview: GitHub Pages (automatic)
 - Production: `prbc.org.au`

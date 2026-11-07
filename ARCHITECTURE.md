@@ -4,87 +4,6 @@
 > The current site is at the repository root and contains Home, About and Contact; older pages and migration
 > files have been removed. See `QUICK_START.md` for current guidance.
 
-## System Architecture
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                    PRBC Website Architecture                         │
-└─────────────────────────────────────────────────────────────────────┘
-
-1. CONTENT SOURCE
-   ┌─────────────────────────┐
-   │   WordPress (prbc.org.au)│  ← Dynamic CMS
-   │                          │     (can be retired after migration)
-   └────────────┬─────────────┘
-                │ pages-api.json (REST API export)
-                ↓
-2. STATIC GENERATION
-   ┌─────────────────────────┐
-   │  clone-site.py          │  ← Python scraper
-   │  (Crawls & downloads)   │     Converts dynamic → static HTML
-   └────────────┬─────────────┘
-                │ static-site/
-                ↓
-3. VERSION CONTROL
-   ┌─────────────────────────┐
-   │  Git Repository         │  ← PRBC-Technology/prbc-website
-   │  (GitHub)               │
-   └────────────┬─────────────┘
-         │                  │
-    commit                  │
-         │                  │
-         ↓                  ↓
-4a. STAGING (GitHub Actions)    4b. PRODUCTION (Manual Upload)
-   ┌──────────────────────┐      ┌──────────────────────┐
-   │ build_pages.py       │      │ static-site/ folder  │
-   │ (Adds noindex,       │      │ (Uploaded via SFTP)  │
-   │  modifies paths)     │      │                      │
-   └──────┬───────────────┘      └──────────┬───────────┘
-          │                                 │
-          ↓                                 ↓
-   ┌──────────────────────┐      ┌──────────────────────┐
-   │ pages-dist/          │      │ prbc.org.au          │
-   │ (GitHub Pages)       │      │ (Web Host)           │
-   │ Noindex for preview  │      │ Live Production      │
-   └──────────────────────┘      └──────────────────────┘
-         ↑                              ↑
-         │                              │
-      TEST                          PRODUCTION
-      github.com/.../prbc-website  https://prbc.org.au/
-```
-
----
-
-## Data Flow
-
-### Creating/Updating Content
-
-```
-1. EDIT LOCAL FILES
-   static-site/
-   ├── index.html (edit homepage)
-   ├── about/index.html
-   ├── home.css (edit styles)
-   └── ...
-
-2. COMMIT & PUSH TO GIT
-   git add .
-   git commit -m "Update event schedule"
-   git push origin main
-
-3a. GITHUB PAGES (AUTOMATIC)         3b. PRODUCTION (MANUAL)
-    └─ GitHub Actions triggered        └─ VS Code SFTP Extension
-       └─ build_pages.py runs          └─ Upload static-site/ folder
-          └─ pages-dist/ created       └─ Files sync to server
-             └─ Deployed to GitHub Pages
-
-4. VERIFY
-   Test on GitHub Pages              Test on Production
-   https://prbc-technology...        https://prbc.org.au/
-```
-
----
-
 ## Component Structure
 
 ### Homepage Layout
@@ -409,19 +328,6 @@ build_pages.py workflow:
 
 **Result**: Public preview that doesn't compete with production site
 
-### Production Deployment
-
-```bash
-VS Code SFTP Extension:
-1. Authenticate with FTP credentials
-2. Select static-site/ folder
-3. Upload Folder
-4. Files sync to web host root
-5. Live at https://prbc.org.au/
-```
-
----
-
 ## File Size & Performance
 
 ### Typical Page Sizes
@@ -468,12 +374,6 @@ VS Code SFTP Extension:
 ---
 
 ## Security Considerations
-
-### SFTP Deployment
-- Uses encrypted FTP (not plain FTP)
-- Credentials stored locally in `.vscode/sftp.json`
-- Not committed to Git
-- Password prompted at deployment time
 
 ### Content Security
 - No user input processing (static site)

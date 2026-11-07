@@ -63,7 +63,6 @@ PRBC Website/
 ├── pages-api.json            # WordPress API export of all pages
 ├── original-home.html        # Original homepage reference
 ├── README.md                 # Project brief
-├── DEPLOYMENT.md             # Deployment instructions
 ├── SEO-NOTES.md              # Local SEO strategy and research
 └── .github/workflows/        # GitHub Actions CI/CD
 ```
@@ -95,7 +94,6 @@ PRBC Website/
   - `clone-site.py`: Scrapes WordPress site to create static copy
   - `build_pages.py`: Prepares GitHub Pages deployment with noindex headers
 - **GitHub Pages**: Public preview/staging
-- **SFTP Deployment**: Manual deployment to production server via SFTP extension
 - **Git**: Version control
 
 ---
@@ -216,7 +214,6 @@ PRBC Website/
 1. **WordPress Source**: Original website runs on WordPress at prbc.org.au
 2. **Static Generation**: `clone-site.py` scrapes WordPress and creates static HTML
 3. **GitHub Pages**: `pages-dist/` directory deployed for public preview
-4. **Production**: `static-site/` uploaded via SFTP to live server
 
 ### GitHub Pages Build Process
 `build_pages.py` transforms `static-site/` → `pages-dist/`:
@@ -228,14 +225,6 @@ PRBC Website/
 - Updates og:url to GitHub Pages domain
 - Replaces hero image URL with GitHub Pages version
 - Adds `.nojekyll` file to prevent Jekyll processing
-
-### Production Deployment
-- Manually upload `static-site/` folder to web host
-- Use VS Code SFTP extension
-- Configuration in `.vscode/sftp.json` (encrypted, not in git)
-- FTP credentials required; stored locally, not committed
-
----
 
 ## Content Management
 
@@ -375,7 +364,6 @@ PRBC Website/
 - `static-site/brand.css` - Brand colors and typography
 - `clone-site.py` - WordPress scraper
 - `scripts/build_pages.py` - GitHub Pages build
-- `DEPLOYMENT.md` - Deployment instructions
 - `SEO-NOTES.md` - Local SEO strategy
 
 ### Important URLs
@@ -399,7 +387,7 @@ PRBC Website/
 3. **Accessibility Focus**: Proper semantic HTML, ARIA labels, keyboard navigation
 4. **Brand Consistency**: Unified design system with CSS variables and typography standards
 5. **Deployment Strategy**: Clean separation between staging (GitHub Pages) and production
-6. **Documentation**: Good documentation in DEPLOYMENT.md and SEO-NOTES.md
+6. **Documentation**: Local SEO strategy in SEO-NOTES.md
 7. **Performance**: Minimal JavaScript, modern image formats, optimized fonts
 8. **Community-Focused**: Content emphasizes belonging, welcome, and community service
 
