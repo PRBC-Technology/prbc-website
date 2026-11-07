@@ -337,13 +337,13 @@ build_pages.py workflow:
 | index.html | ~9.3 KB |
 | home.css | ~12 KB |
 | brand.css | ~4 KB |
-| hero-original.jpg | ~200-300 KB |
+| hero-original.jpg | ~341 KB |
 | Montserrat WOFF2 (all weights) | ~60 KB total |
 | Full homepage (HTML + CSS + Fonts) | ~500 KB |
 
 ### Perceived Performance
 - Fonts load via WOFF2 (modern, compressed)
-- Hero image lazy-loads below fold
+- Hero image loads eagerly as the main page's prominent image
 - CSS-only animations (no JavaScript)
 - No external dependencies
 - No tracking scripts
