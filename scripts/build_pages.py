@@ -8,7 +8,7 @@ source = Path(__file__).resolve().parent.parent
 target = source / 'pages-dist'
 site_items = (
     'index.html', 'home.css', 'home.js', 'brand.css', 'pages.css',
-    'about', 'contact', 'assets', 'site-content',
+    'about', 'contact', 'assets', 'site-content', 'enlarge',
 )
 for name in site_items:
     if not (source / name).exists():
@@ -40,6 +40,8 @@ for file in target.rglob('*'):
             content = re.sub(r'(<meta property="og:url" content=")https://prbc\.org\.au(/[^" ]*)', lambda m: m.group(1) + 'https://prbc-technology.github.io' + prefix + m.group(2), content)
             content = re.sub(r"</head>", '<meta name="robots" content="noindex, nofollow">\n</head>', content, count=1, flags=re.I)
         file.write_text(content, encoding='utf-8')
+# Keep editor instructions out of the public preview.
+(target / 'enlarge' / 'UPDATING.md').unlink(missing_ok=True)
 # Sitemap and robots.txt describe the future production domain, not this preview.
 for name in ('robots.txt', 'sitemap.xml'):
     (target / name).unlink(missing_ok=True)
