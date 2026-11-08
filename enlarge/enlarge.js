@@ -37,10 +37,11 @@
     const start = Math.min(Date.UTC(2026, 9, 25), entries[0].date), end = Math.max(campaignEnd, entries[entries.length - 1].date);
     const labels = document.querySelectorAll('.axis-labels span');
     const axisDate = new Intl.DateTimeFormat('en-AU', { day: 'numeric', month: 'short', timeZone: 'UTC' });
-    labels[0].textContent = axisDate.format(new Date(start));
-    labels[3].textContent = axisDate.format(new Date(end));
+    labels[4].textContent = axisDate.format(new Date(end));
+    labels[0].style.left = `${100 * (Date.UTC(2026, 10, 1) - start) / (end - start)}%`;
     labels[1].style.left = `${100 * (Date.UTC(2026, 11, 1) - start) / (end - start)}%`;
-    labels[2].style.left = `${100 * (Date.UTC(2027, 1, 1) - start) / (end - start)}%`;
+    labels[2].style.left = `${100 * (Date.UTC(2027, 0, 1) - start) / (end - start)}%`;
+    labels[3].style.left = `${100 * (Date.UTC(2027, 1, 1) - start) / (end - start)}%`;
     const plotted = entries.map(entry => ({
       ...entry,
       x: 400 * (entry.date - start) / (end - start),
