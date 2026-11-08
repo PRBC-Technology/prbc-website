@@ -1,23 +1,44 @@
 (() => {
   const goal = 200000;
+  const campaignEnd = Date.UTC(2027, 1, 28);
+  const revealDuration = 5000;
   const amount = document.getElementById('amount');
   const percent = document.getElementById('percent');
   const actual = document.getElementById('chart-actual');
+  const reveal = document.getElementById('progress-reveal');
   const area = document.getElementById('chart-area');
   const projection = document.getElementById('chart-projection');
   const points = document.getElementById('chart-points');
   const note = document.getElementById('update-note');
   const message = document.getElementById('data-message');
   const celebration = document.getElementById('celebration');
+  const countdown = document.getElementById('countdown');
   const money = new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 });
+  const brisbaneDate = new Intl.DateTimeFormat('en-AU', { timeZone: 'Australia/Brisbane', year: 'numeric', month: 'numeric', day: 'numeric' });
+
+  function updateCountdown() {
+    const parts = Object.fromEntries(brisbaneDate.formatToParts(new Date()).map(part => [part.type, part.value]));
+    const today = Date.UTC(Number(parts.year), Number(parts.month) - 1, Number(parts.day));
+    const days = (campaignEnd - today) / 86400000;
+    countdown.textContent = days < 0
+      ? 'Campaign has ended'
+      : days === 0
+        ? 'Last day to contribute'
+        : `${days} ${days === 1 ? 'day' : 'days'} remaining to contribute`;
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 60000);
+
   function show(entries) {
     const { value, updated } = entries[entries.length - 1];
     const share = value / goal * 100;
     amount.textContent = money.format(value);
     percent.textContent = `${Number(share.toFixed(1))}%`;
-    const start = Math.min(Date.UTC(2026, 9, 30), entries[0].date), end = Math.max(Date.UTC(2027, 2, 30), entries[entries.length - 1].date);
+    const start = Math.min(Date.UTC(2026, 9, 25), entries[0].date), end = Math.max(campaignEnd, entries[entries.length - 1].date);
     const labels = document.querySelectorAll('.axis-labels span');
-    labels[0].textContent = new Intl.DateTimeFormat('en-AU', { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(start));
+    const axisDate = new Intl.DateTimeFormat('en-AU', { day: 'numeric', month: 'short', timeZone: 'UTC' });
+    labels[0].textContent = axisDate.format(new Date(start));
+    labels[3].textContent = axisDate.format(new Date(end));
     labels[1].style.left = `${100 * (Date.UTC(2026, 11, 1) - start) / (end - start)}%`;
     labels[2].style.left = `${100 * (Date.UTC(2027, 1, 1) - start) / (end - start)}%`;
     const plotted = entries.map(entry => ({
@@ -27,7 +48,10 @@
     }));
     const path = plotted.map((entry, i) => `${i ? 'L' : 'M'} ${entry.x} ${entry.y}`).join(' ');
     const first = plotted[0], last = plotted[plotted.length - 1];
+    const revealStart = first.x - 4, revealWidth = last.x - first.x + 8;
     actual.setAttribute('d', path);
+    reveal.setAttribute('x', String(revealStart));
+    reveal.setAttribute('width', String(revealWidth));
     area.setAttribute('d', `${path} L ${last.x} 125 L ${first.x} 125 Z`);
     projection.setAttribute('d', `M ${last.x} ${last.y} L 400 20`);
     points.replaceChildren();
@@ -36,25 +60,22 @@
       circle.className = 'chart-point';
       circle.style.left = `${entry.x / 4}%`;
       circle.style.top = `${entry.y / 1.5}%`;
+      circle.style.setProperty('--bounce-delay', `${plotted.length === 1 ? 0 : revealDuration * (entry.x - revealStart) / revealWidth}ms`);
       circle.title = `${entry.updated}: ${money.format(entry.value)}`;
       points.appendChild(circle);
     });
-    requestAnimationFrame(() => requestAnimationFrame(() => actual.classList.add('drawn')));
+    document.querySelector('.chart').style.setProperty('--reveal-duration', `${revealDuration}ms`);
+    reveal.classList.add('animate');
     document.querySelector('.chart').setAttribute('role', 'progressbar');
     document.querySelector('.chart').setAttribute('aria-label', 'Enlarge fundraising progress');
     document.querySelector('.chart').setAttribute('aria-valuemin', '0');
     document.querySelector('.chart').setAttribute('aria-valuemax', String(goal));
     document.querySelector('.chart').setAttribute('aria-valuenow', String(Math.min(value, goal)));
     document.querySelector('.chart').setAttribute('aria-valuetext', `${money.format(value)} raised of ${money.format(goal)}`);
-    document.querySelectorAll('.milestone').forEach(item => item.classList.toggle('reached', share >= Number(item.dataset.percent)));
-    const reached = [25, 50, 75, 100].filter(target => share >= target).pop();
-    if (reached) {
-      celebration.textContent = reached === 100 ? '✦ Goal reached — thank you, church family!' : `✦ ${reached}% milestone reached — thank you, church family!`;
-      celebration.classList.add('visible');
-    } else {
-      celebration.textContent = `✦ ${money.format(Math.max(0, goal * 0.25 - value))} to our first milestone`;
-      celebration.classList.remove('visible');
-    }
+    celebration.textContent = value >= goal
+      ? '✦ Commitment reached — thank you, church family!'
+      : `✦ ${money.format(goal - value)} to reach our commitment`;
+    celebration.classList.toggle('visible', value >= goal);
     if (updated) {
       const date = new Date(`${updated}T12:00:00`);
       if (!Number.isNaN(date.valueOf())) note.textContent = `Last updated ${new Intl.DateTimeFormat('en-AU', { day: 'numeric', month: 'long', year: 'numeric' }).format(date)}`;

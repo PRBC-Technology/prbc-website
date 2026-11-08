@@ -9,3 +9,7 @@ amount_aud,updated_at
 ```
 
 Enter the cumulative total in Australian dollars without a dollar sign or comma. Use a unique date in YYYY-MM-DD format. The chart expands to include dates outside the campaign if needed. Rows are plotted in date order, and the most recent date determines the displayed total. Save the file, then publish it with the website; local edits alone do not update the live site.
+
+The countdown uses the Brisbane calendar date and updates while the page is open.
+If the campaign end date changes, update `campaignEnd` in `enlarge/enlarge.js`
+and the displayed dates in `enlarge/index.html` before publishing.

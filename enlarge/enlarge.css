@@ -12,3 +12,95 @@
 .axis-labels{position:relative;display:block;height:15px}.axis-labels span{position:absolute;top:0;transform:translateX(-50%)}.axis-labels span:nth-child(1){left:0;transform:none}.axis-labels span:nth-child(2){left:21.2%}.axis-labels span:nth-child(3){left:62.3%}.axis-labels span:nth-child(4){right:0;transform:none}
 /* Keep the right-hand dollar scale in front of the SVG at every width. */
 .y-axis{z-index:2;color:#003057;opacity:1;visibility:visible;white-space:nowrap}.y-axis span{display:block;color:#003057}.journey-chart{position:relative;z-index:0}.chart-points{z-index:1}
+.gridline{stroke:#e6edef;stroke-width:1}
+.future-line{stroke:#b7d1d2;stroke-width:2;stroke-dasharray:4 6}
+.progress-line{stroke:#00a99d;stroke-width:4;stroke-dasharray:none;stroke-dashoffset:0;filter:drop-shadow(0 2px 3px #00a99d40);transition:none}
+.chart-point{width:9px;height:9px;border:2px solid #fff;box-shadow:0 1px 4px #00305733}
+.chart-caption{display:flex;align-items:center;flex-wrap:wrap;gap:8px 24px;line-height:1.5}
+.legend-item{display:inline-flex;align-items:center;gap:8px}
+.legend-point{width:9px;height:9px;border:2px solid #fff;border-radius:50%;background:#00bfb2;box-shadow:0 1px 4px #00305733;flex:none}
+.legend-raised{width:26px;border-top:3px solid #00a99d;border-radius:2px;flex:none}
+.legend-line{width:26px;border-top:2px dashed #9dbfc0;flex:none}
+body{background:radial-gradient(ellipse at 82% 28%,#0b5270 0,transparent 42%),radial-gradient(ellipse at 12% 78%,#06436a 0,transparent 38%),var(--campaign-navy)}
+.header{background:transparent}
+#progress-reveal.animate{transform-box:fill-box;transform-origin:left center;animation:reveal-progress var(--reveal-duration,5s) linear both}
+.chart-point{animation:point-bounce .65s ease-out var(--bounce-delay,0s) both}
+@keyframes reveal-progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes point-bounce{
+  0%,100%{transform:translate(-50%,-50%) scale(1)}
+  35%{transform:translate(-50%,-50%) scale(1.9)}
+  65%{transform:translate(-50%,-50%) scale(.85)}
+  85%{transform:translate(-50%,-50%) scale(1.12)}
+}
+@media(prefers-reduced-motion:reduce){#progress-reveal.animate,.chart-point{animation:none}}
+.fund-card{background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(235,248,249,.9));border:1px solid rgba(255,255,255,.78);box-shadow:0 24px 70px rgba(0,18,38,.22),inset 0 1px rgba(255,255,255,.8);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.journey-chart{height:clamp(150px,21vh,220px)}
+.gridline{stroke:#dbe8eb;stroke-width:1}
+.y-axis span:nth-child(2),.y-axis span:nth-child(4){display:none}
+.week-ticks i{visibility:hidden}
+.week-ticks i:nth-child(5n + 1){visibility:visible}
+@media(min-width:1100px){
+  .campaign-grid.shell{width:min(100% - 80px,1600px);grid-template-columns:minmax(300px,.82fr) minmax(0,1.65fr);gap:clamp(42px,4vw,76px)}
+  .campaign-copy h1{font-size:clamp(62px,5vw,84px)}
+}
+@media(max-width:600px){
+  .journey-chart{height:clamp(130px,18vh,180px)}
+}
+@media(min-width:1400px) and (min-height:850px){
+  .nav-wrap{height:94px}
+  .nav-wrap.shell,.campaign-footer .shell{width:min(100% - 80px,1840px)}
+  .brand img{width:72px;height:72px}
+  .campaign-grid.shell{width:min(100% - 80px,1840px);grid-template-columns:minmax(520px,.8fr) minmax(0,1.9fr);gap:clamp(64px,4vw,84px)}
+  .campaign-layout{min-height:calc(100svh - 153px);padding:24px 0 36px}
+  .campaign-copy h1{font-size:clamp(76px,4.8vw,92px);margin:28px 0}
+  .campaign-label{font-size:13px}
+  .campaign-description{max-width:500px;font-size:23px}
+  .campaign-date{font-size:14px;margin-top:36px}
+  .fund-card{padding:40px clamp(48px,2.8vw,56px);border-radius:18px;background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(235,248,249,.82));box-shadow:0 30px 90px rgba(0,18,38,.26),inset 0 1px rgba(255,255,255,.9);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+  .small-label,.milestone small{font-size:12px}
+  .total{font-size:clamp(76px,4.6vw,88px);margin:20px 0 10px}
+  .goal{font-size:19px}
+  .percent-badge{width:108px;height:108px}
+  .percent-badge span{font-size:28px}
+  .percent-badge small{font-size:10px}
+  .chart{margin-top:34px}
+  .journey-chart{height:clamp(200px,21vh,228px)}
+  .y-axis{font-size:13px}
+  .time-axis{margin-top:8px}
+  .axis-labels{height:22px}
+  .axis-labels,.chart-caption{font-size:13px}
+  .chart-caption{margin-top:12px}
+  .celebration,.update-note{font-size:15px}
+  .milestones{margin-top:20px;padding-top:20px}
+  .milestone{padding:0 20px}
+  .milestone-icon{font-size:24px;margin-bottom:10px}
+  .milestone span:nth-child(2){font-size:17px}
+  .milestone strong{font-size:23px}
+  .milestone small{font-size:10px}
+  .campaign-footer{font-size:14px}
+}
+:root{--campaign-navy:#052d50;--campaign-coral:#ef896a;--campaign-cream:#ffe3ad;--campaign-chart:#bb533b}
+body{background:radial-gradient(ellipse at 82% 28%,#09486c 0,transparent 42%),radial-gradient(ellipse at 12% 78%,#073c60 0,transparent 38%),var(--campaign-navy)}
+.campaign-copy h1{color:var(--campaign-coral)}
+.campaign-copy h1 em,.campaign-label,.campaign-date,.campaign-footer{color:var(--campaign-cream)}
+.campaign-label span,.campaign-date span{color:var(--campaign-coral)}
+.campaign-label span{background:var(--campaign-coral)}
+.fund-card{background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(255,244,226,.9));color:var(--campaign-navy)}
+.percent-badge{background:var(--campaign-cream)}
+.progress-line{stroke:var(--campaign-chart);filter:drop-shadow(0 2px 3px #bb533b40)}
+.chart-point,.legend-point{background:var(--campaign-chart)}
+.legend-raised{border-color:var(--campaign-chart)}
+.future-line{stroke:#89a9b9}
+.legend-line{border-color:#89a9b9}
+.celebration{color:#8f402d}
+.countdown{color:var(--campaign-navy);font-size:12px;font-weight:600;margin:6px 0 0}
+@media(min-width:1400px) and (min-height:850px){.countdown{font-size:15px}}
+.milestone-icon{color:var(--campaign-chart)}
+.milestone.reached strong,.milestone.reached small{color:#8f402d}
+.campaign-copy h1.campaign-name{color:var(--campaign-coral);font-size:clamp(54px,5vw,92px);line-height:1;letter-spacing:-.045em;margin:0 0 34px}
+.campaign-name span{display:block;color:var(--campaign-cream);font-size:.44em;letter-spacing:-.025em;margin-top:12px}
+.campaign-tagline{font-size:clamp(36px,3vw,54px);font-weight:600;letter-spacing:-.04em;line-height:1.12;margin:0 0 26px}
+.campaign-tagline em{font-family:'PRBC Noto Serif',serif;color:var(--campaign-cream);font-weight:300;letter-spacing:-.025em}
+.percent-badge small{text-align:center;line-height:1.2;letter-spacing:.02em}
+@media(min-width:1400px) and (min-height:850px){.journey-chart{height:clamp(240px,27vh,292px)}}
+@media(max-width:500px){.campaign-copy h1.campaign-name{font-size:clamp(50px,13vw,64px)}.percent-badge small{font-size:8px}}
