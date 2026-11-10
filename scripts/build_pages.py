@@ -7,7 +7,7 @@ import shutil
 source = Path(__file__).resolve().parent.parent
 target = source / 'pages-dist'
 site_items = (
-    'index.html', 'home.css', 'home.js', 'brand.css', 'pages.css',
+    'index.html', '404.html', 'home.css', 'home.js', 'brand.css', 'pages.css',
     'about', 'contact', 'assets', 'site-content', 'enlarge',
 )
 for name in site_items:

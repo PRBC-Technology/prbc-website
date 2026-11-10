@@ -119,6 +119,7 @@ When adding a top-level page or asset folder, add it to `site_items` in
 ```
 repository root/
 ├── index.html              ← Homepage
+├── 404.html                ← Branded not-found page (also used by GitHub Pages)
 ├── about/index.html        ← About page
 ├── contact/index.html      ← Contact page
 ├── home.css               ← Homepage styles
