@@ -104,3 +104,6 @@ body{background:radial-gradient(ellipse at 82% 28%,#09486c 0,transparent 42%),ra
 .percent-badge small{text-align:center;line-height:1.2;letter-spacing:.02em}
 @media(min-width:1400px) and (min-height:850px){.journey-chart{height:clamp(240px,27vh,292px)}}
 @media(max-width:500px){.campaign-copy h1.campaign-name{font-size:clamp(50px,13vw,64px)}.percent-badge small{font-size:8px}}
+
+/* Give the fundraising figure room to breathe. */
+.total{letter-spacing:-.025em;font-variant-numeric:tabular-nums}

@@ -32,7 +32,8 @@
   function show(entries) {
     const { value, updated } = entries[entries.length - 1];
     const share = value / goal * 100;
-    amount.textContent = money.format(value);
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    amount.textContent = money.format(reducedMotion ? value : 0);
     percent.textContent = `${Number(share.toFixed(1))}%`;
     const start = Math.min(Date.UTC(2026, 9, 25), entries[0].date), end = Math.max(campaignEnd, entries[entries.length - 1].date);
     const labels = document.querySelectorAll('.axis-labels span');
@@ -66,7 +67,20 @@
       points.appendChild(circle);
     });
     document.querySelector('.chart').style.setProperty('--reveal-duration', `${revealDuration}ms`);
-    reveal.classList.add('animate');
+    if (reducedMotion) {
+      reveal.classList.add('animate');
+    } else {
+      requestAnimationFrame(() => {
+        reveal.classList.add('animate');
+        const startTime = performance.now();
+        const updateAmount = (now) => {
+          const progress = Math.min(1, (now - startTime) / revealDuration);
+          amount.textContent = money.format(value * progress);
+          if (progress < 1) requestAnimationFrame(updateAmount);
+        };
+        requestAnimationFrame(updateAmount);
+      });
+    }
     document.querySelector('.chart').setAttribute('role', 'progressbar');
     document.querySelector('.chart').setAttribute('aria-label', 'Enlarge fundraising progress');
     document.querySelector('.chart').setAttribute('aria-valuemin', '0');
