@@ -29,6 +29,41 @@
   updateCountdown();
   setInterval(updateCountdown, 60000);
 
+  function burstConfetti() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const card = document.querySelector('.fund-card');
+    if (!card) return;
+    const cardRect = card.getBoundingClientRect();
+    const amountRect = amount.getBoundingClientRect();
+    const burst = document.createElement('div');
+    burst.className = 'confetti';
+    burst.setAttribute('aria-hidden', 'true');
+    burst.style.left = `${amountRect.left - cardRect.left + amountRect.width / 2}px`;
+    burst.style.top = `${amountRect.top - cardRect.top + amountRect.height / 2}px`;
+    const colors = ['#ef896a', '#ffe3ad', '#00bfb2', '#bb533b', '#052d50', '#bbe5f0'];
+    const count = window.innerWidth < 600 ? 18 : 30;
+    let longest = 0;
+    for (let i = 0; i < count; i++) {
+      const piece = document.createElement('i');
+      const duration = 950 + Math.random() * 500;
+      const delay = Math.random() * 120;
+      piece.style.setProperty('--c', colors[i % colors.length]);
+      piece.style.setProperty('--tx', `${(Math.random() - 0.5) * 260}px`);
+      piece.style.setProperty('--peak', `${-(35 + Math.random() * 85)}px`);
+      piece.style.setProperty('--ty', `${35 + Math.random() * 105}px`);
+      piece.style.setProperty('--rot', `${(Math.random() - 0.5) * 720}deg`);
+      piece.style.setProperty('--w', `${5 + Math.random() * 5}px`);
+      piece.style.setProperty('--h', `${6 + Math.random() * 8}px`);
+      piece.style.setProperty('--r', Math.random() > 0.35 ? '2px' : '50%');
+      piece.style.setProperty('--dur', `${duration}ms`);
+      piece.style.setProperty('--delay', `${delay}ms`);
+      burst.appendChild(piece);
+      longest = Math.max(longest, duration + delay);
+    }
+    card.appendChild(burst);
+    setTimeout(() => burst.remove(), longest + 200);
+  }
+
   function show(entries) {
     const { value, updated } = entries[entries.length - 1];
     const share = value / goal * 100;
@@ -77,6 +112,7 @@
           const progress = Math.min(1, (now - startTime) / revealDuration);
           amount.textContent = money.format(value * progress);
           if (progress < 1) requestAnimationFrame(updateAmount);
+          else burstConfetti();
         };
         requestAnimationFrame(updateAmount);
       });
