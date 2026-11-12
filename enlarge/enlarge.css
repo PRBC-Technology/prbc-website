@@ -121,11 +121,10 @@ body{background:radial-gradient(ellipse at 82% 28%,#09486c 0,transparent 42%),ra
 @media(prefers-reduced-motion:reduce){.percent-badge{animation:none}}
 
 /* Confetti bursts from the total once the count-up finishes. */
-.fund-card{position:relative}
-.confetti{position:absolute;width:0;height:0;pointer-events:none;z-index:5}
-.confetti i{position:absolute;left:0;top:0;width:var(--w,7px);height:var(--h,9px);border-radius:var(--r,2px);background:var(--c,#ef896a);animation:confetti-burst var(--dur,1100ms) cubic-bezier(.2,.65,.4,1) var(--delay,0ms) forwards}
+.confetti{position:fixed;width:0;height:0;pointer-events:none;z-index:9999}
+.confetti i{position:absolute;left:0;top:0;width:var(--w,14px);height:var(--h,18px);border-radius:var(--r,2px);background:var(--c,#ef896a);animation:confetti-burst var(--dur,3000ms) cubic-bezier(.2,.65,.4,1) var(--delay,0ms) forwards}
 @keyframes confetti-burst{
   0%{transform:translate(0,0) rotate(0) scale(.4);opacity:1}
-  45%{transform:translate(calc(var(--tx,0px) * .55),var(--peak,-60px)) rotate(calc(var(--rot,0deg) * .45)) scale(1)}
-  100%{transform:translate(var(--tx,0px),var(--ty,80px)) rotate(var(--rot,0deg)) scale(.9);opacity:0}
+  45%{transform:translate(calc(var(--tx,0px) * .55),var(--peak,-120px)) rotate(calc(var(--rot,0deg) * .45)) scale(1)}
+  100%{transform:translate(var(--tx,0px),var(--ty,160px)) rotate(var(--rot,0deg)) scale(.9);opacity:0}
 }
