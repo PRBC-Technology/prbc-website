@@ -107,3 +107,15 @@ body{background:radial-gradient(ellipse at 82% 28%,#09486c 0,transparent 42%),ra
 
 /* Give the fundraising figure room to breathe. */
 .total{letter-spacing:-.025em;font-variant-numeric:tabular-nums}
+
+/* A slow bubble-like drift so the percentage badge has a little character. */
+.percent-badge{animation:badge-drift 10s cubic-bezier(.45,.05,.55,.95) infinite}
+@keyframes badge-drift{
+  0%{transform:rotate(-7deg) translateY(0) scale(1)}
+  20%{transform:rotate(-2deg) translateY(-5px) scale(1.015)}
+  40%{transform:rotate(6deg) translateY(-1px) scale(1.03)}
+  60%{transform:rotate(3deg) translateY(-6px) scale(1.015)}
+  80%{transform:rotate(-5deg) translateY(-2px) scale(1.03)}
+  100%{transform:rotate(-7deg) translateY(0) scale(1)}
+}
+@media(prefers-reduced-motion:reduce){.percent-badge{animation:none}}
