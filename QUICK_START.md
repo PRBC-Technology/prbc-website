@@ -112,6 +112,15 @@ Output: `pages-dist/` folder for GitHub Pages
 When adding a top-level page or asset folder, add it to `site_items` in
 `scripts/build_pages.py` so it is included in the preview build.
 
+### `check_site.py`
+Checks local links, page anchors, duplicate IDs, image `alt`/dimensions, iframe
+titles and CSS asset URLs. It runs on every push and pull request, and the
+GitHub Pages deploy also runs it before building.
+
+```bash
+python scripts/check_site.py
+```
+
 ---
 
 ## File Structure at a Glance
